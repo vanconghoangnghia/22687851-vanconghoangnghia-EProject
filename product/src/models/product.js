@@ -6,6 +6,6 @@ const productSchema = new mongoose.Schema({
   description: { type: String },
 }, { collection : 'products' });
 
-const Product = mongoose.model("Product", productSchema); // tên model là "Product" 
+const Product = mongoose.model("Product", productSchema); 
 
 module.exports = Product;

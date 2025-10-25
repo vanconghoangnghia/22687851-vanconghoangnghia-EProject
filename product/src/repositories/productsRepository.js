@@ -14,17 +14,17 @@ const Product = require("../models/product");
 
 class ProductsRepository {
   async create(product) {
-    const createdProduct = await Product.create(product); // tao san pham moi
-    return createdProduct.toObject(); // tra ve doi tuong thuong
+    const createdProduct = await Product.create(product); 
+    return createdProduct.toObject(); 
   }
 
   async findById(productId) {
-    const product = await Product.findById(productId).lean(); // tim kiem san pham theo id
+    const product = await Product.findById(productId).lean();
     return product;
   }
 
   async findAll() {
-    const products = await Product.find().lean(); // lay tat ca san pham lean de tra ve doi tuong thuong
+    const products = await Product.find().lean(); 
     return products;
   }
 }

@@ -1,6 +1,12 @@
-require("dotenv").config(); // Load biến môi trường từ file .env
+require("dotenv").config();
 
-module.exports = { // Xuất cấu hình để sử dụng trong các phần khác của ứng dụng
-  mongoURI: process.env.MONGODB_AUTH_URI, // Chuỗi kết nối đến cơ sở dữ liệu MongoDB
-  jwtSecret: process.env.JWT_SECRET || "secret",// Bí mật dùng để ký và xác minh JSON Web Tokens (JWT)
+module.exports = {
+  mongoURI: process.env.MONGODB_AUTH_URI,
+  jwtSecret: process.env.JWT_SECRET || "secret",
+  port: process.env.PORT || 3000,
+
+  testUser: {
+    username: process.env.TEST_USER || "testuser",
+    password: process.env.TEST_PASS || "password",
+  },
 };

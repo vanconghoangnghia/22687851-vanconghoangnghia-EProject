@@ -12,6 +12,9 @@ class App {
     this.setMiddlewares();
     this.setRoutes();
     this.setupMessageBroker();
+    this.app.get('/health', (req, res) => {
+      res.status(200).json({ status: 'ok' });
+    });
   }
 
   async connectDB() {
@@ -40,9 +43,9 @@ class App {
     MessageBroker.connect();
   }
 
-  start() {
-    this.server = this.app.listen(3001, () =>
-      console.log("Server started on port 3001")
+  start(port = config.port) {
+    this.server = this.app.listen(port, () =>
+      console.log(`Server started on port ${port}`)
     );
   }
 
@@ -51,6 +54,7 @@ class App {
     this.server.close();
     console.log("Server stopped");
   }
+  
 }
 
 module.exports = App;

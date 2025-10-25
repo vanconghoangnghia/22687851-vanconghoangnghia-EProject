@@ -6,21 +6,21 @@ services:
     container_name: mongo
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ""
-      MONGO_INITDB_ROOT_PASSWORD: ""
     volumes:
       - mongo-data:/data/db
 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: hoangnghia
+      RABBITMQ_DEFAULT_PASS: hoangnghia
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: hoangnghia00
-      RABBITMQ_DEFAULT_PASS: hoangnghia
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
   auth:
     build:
       context: ./auth
@@ -28,9 +28,6 @@ services:
     container_name: auth
     ports:
       - "3000:3000"
-    environment:
-      RABBITMQ_USER: hoangnghia00
-      RABBITMQ_PASS: hoangnghia
     depends_on:
       - mongo
       - rabbitmq
@@ -42,9 +39,6 @@ services:
     container_name: order
     ports:
       - "3002:3002"
-    environment:
-      RABBITMQ_USER: hoangnghia00
-      RABBITMQ_PASS: hoangnghia
     depends_on:
       - mongo
       - rabbitmq
@@ -56,9 +50,6 @@ services:
     container_name: product
     ports:
       - "3001:3001"
-    environment:
-      RABBITMQ_USER: hoangnghia00
-      RABBITMQ_PASS: hoangnghia
     depends_on:
       - mongo
       - rabbitmq
@@ -70,9 +61,6 @@ services:
     container_name: gateway
     ports:
       - "3003:3003"
-    environment:
-      RABBITMQ_USER: hoangnghia00
-      RABBITMQ_PASS: hoangnghia
     depends_on:
       - auth
       - product
@@ -80,3 +68,4 @@ services:
 
 volumes:
   mongo-data:
+  rabbitmq-data:

@@ -1,9 +1,9 @@
-const mongoose = require("mongoose"); // Thư viện Mongoose để làm việc với MongoDB
+const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({ // Định nghĩa lược đồ người dùng
+const UserSchema = new mongoose.Schema({ 
   username: {
     type: String,
-    required: true // Tên người dùng là bắt buộc
+    required: true
   },
   password: {
     type: String,
@@ -11,4 +11,4 @@ const UserSchema = new mongoose.Schema({ // Định nghĩa lược đồ ngườ
   }
 });
 
-module.exports = mongoose.model("User", UserSchema); // Xuất mô hình người dùng để sử dụng trong các phần khác của ứng dụng
+module.exports = mongoose.model("User", UserSchema); 

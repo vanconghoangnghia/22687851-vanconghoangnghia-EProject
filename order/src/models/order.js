@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({ 
   products: [{
-    type: mongoose.Schema.Types.ObjectId, // Tham chiếu đến mô hình sản phẩm
-    ref: 'products', // Tên mô hình sản phẩm
-    required: true, // Sản phẩm là bắt buộc
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'products', 
+    required: true, 
   }],
-  totalPrice: { // Tổng giá trị đơn hàng
+  totalPrice: { 
     type: Number,
     required: true,
     min: 0, 
   },
   createdAt: { 
     type: Date,
-    default: Date.now, // Mặc định là thời gian hiện tại khi tạo đơn hàng
+    default: Date.now, 
   },
-}, { collection : 'orders' }); // Chỉ định tên bộ sưu tập là 'orders'
+}, { collection : 'orders' }); 
 
-const Order = mongoose.model('Order', orderSchema); // Tạo mô hình Order từ lược đồ orderSchema
+const Order = mongoose.model('Order', orderSchema); 
 
 module.exports = Order;

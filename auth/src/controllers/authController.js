@@ -6,45 +6,44 @@ const AuthService = require("../services/authService"); // Import dịch vụ x�
 
 class AuthController {
   constructor() {
-    this.authService = new AuthService(); // Tạo một thể hiện mới của AuthService
+    this.authService = new AuthService(); 
   }
 
   async login(req, res) { 
-    const { username, password } = req.body; // Lấy tên đăng nhập và mật khẩu từ yêu cầu
+    const { username, password } = req.body; 
  
-    const result = await this.authService.login(username, password); // Gọi phương thức đăng nhập của dịch vụ xác thực
+    const result = await this.authService.login(username, password); 
 
     if (result.success) {
-      res.json({ token: result.token }); // Trả về token nếu đăng nhập thành công
+      res.json({ token: result.token });
     } else {
-      res.status(400).json({ message: result.message }); // Trả về lỗi nếu đăng nhập thất bại
+      res.status(400).json({ message: result.message }); 
     }
   }
 
   async register(req, res) {
-    const user = req.body; // Lấy thông tin người dùng từ yêu cầu
+    const user = req.body; 
    
     try {
-      const existingUser = await this.authService.findUserByUsername(user.username); // Kiểm tra nếu tên đăng nhập đã tồn tại
+      const existingUser = await this.authService.findUserByUsername(user.username); 
   
       if (existingUser) {
         console.log("Username already taken")
         throw new Error("Username already taken");
       }
   
-      const result = await this.authService.register(user); // Gọi phương thức đăng ký của dịch vụ xác thực
-      res.json(result); // Trả về kết quả đăng ký thành công
+      const result = await this.authService.register(user); 
+      res.json(result); 
     } catch (err) {
-      res.status(400).json({ message: err.message }); // Trả về lỗi nếu đăng ký thất bại
+      res.status(400).json({ message: err.message }); 
     }
   }
 
   async getProfile(req, res) {
-    const userId = req.user.id; // Lấy ID người dùng từ yêu cầu (giả sử đã được xác thực)
+    const userId = req.user.id; 
 
     try {
-      const user = await this.authService.getUserById(userId); // Gọi phương thức để lấy thông tin người dùng theo ID
-      res.json(user);
+      const user = await this.authService.getUserById(userId); 
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

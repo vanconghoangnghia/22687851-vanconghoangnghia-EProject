@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-function isAuthenticated(req, res, next) { // kiểm tra xác thực người dùng
+function isAuthenticated(req, res, next) { 
   // Check for the presence of an authorization header
-  const authHeader = req.headers.authorization; // Lấy header xác thực từ yêu cầu
+  const authHeader = req.headers.authorization; 
   if (!authHeader) {
-    return res.status(401).json({ message: 'Unauthorized' }); //không có header xác thực
+    return res.status(401).json({ message: 'Unauthorized' });
   } 
 
   // Extract the token from the header
@@ -13,12 +13,12 @@ function isAuthenticated(req, res, next) { // kiểm tra xác thực người d�
 
   try {
     // Verify the token using the JWT library and the secret key
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // Giải mã token
-    req.user = decodedToken; // Gán thông tin người dùng đã giải mã vào yêu cầu
-    next(); // Tiếp tục đến middleware hoặc route handler tiếp theo
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decodedToken;
+    next(); 
   } catch (err) {
-    console.error(err); // Log lỗi nếu có
-    return res.status(401).json({ message: 'Unauthorized' }); // Trả về lỗi nếu token không hợp lệ
+    console.error(err); 
+    return res.status(401).json({ message: 'Unauthorized' }); 
   }
 }
 
